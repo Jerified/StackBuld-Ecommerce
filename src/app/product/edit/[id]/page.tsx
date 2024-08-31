@@ -191,11 +191,7 @@ const EditProduct = () => {
               </div>
             )}
           </div>
-          {errors.image && (
-            <p className="text-red-500 text-sm mt-1">
-              {/* {errors?.image?.message} */}
-            </p>
-          )}
+          {errors.image?.message && <p className="text-red-500 text-sm">{String(errors.image.message)}</p>}
         </div>
 
         <button

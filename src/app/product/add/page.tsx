@@ -14,9 +14,15 @@ const productSchema = z.object({
   price: z.number().positive("Price must be a positive number"),
   category: z.string().min(1, "Category is required"),
   image: z
-    .instanceof(FileList)
-    .refine(files => files.length === 1, "Please select one image.")
-    .refine(files => files[0]?.type.startsWith('image/'), "The selected file must be an image."),
+    .any()
+    .refine(
+      (files) => files instanceof FileList && files.length <= 1,
+      "Please select one image."
+    )
+    .refine(
+      (files) => !files.length || files[0].type.startsWith("image/"),
+      "The selected file must be an image."
+    )
 });
 
 type ProductFormData = z.infer<typeof productSchema>;
@@ -118,7 +124,7 @@ export default function AddProduct() {
               {...register("image")}
               className={`mt-1 p-2 w-full border ${errors.image ? 'border-red-500' : 'border-gray-300'} rounded-md`}
             />
-            {errors.image && <p className="text-red-500 text-sm">{errors.image.message}</p>}
+            {errors.image?.message && <p className="text-red-500 text-sm">{String(errors.image.message)}</p>}
           </div>
 
           <button
