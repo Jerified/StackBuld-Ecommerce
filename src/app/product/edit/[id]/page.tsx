@@ -193,7 +193,7 @@ const EditProduct = () => {
           </div>
           {errors.image && (
             <p className="text-red-500 text-sm mt-1">
-              {errors?.image?.message}
+              {/* {errors?.image?.message} */}
             </p>
           )}
         </div>
