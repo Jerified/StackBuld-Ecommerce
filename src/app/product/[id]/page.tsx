@@ -10,11 +10,11 @@ type IdProp = {
 }
 
 const page = async ({params}: IdProp) => { 
-    console.log(params.id);
-
+    
     const productData = await getProductById(params.id);
+    console.log(productData); 
     if (productData) {
-        console.log(productData);
+        console.log(productData); 
     } else {
         console.log('Product not found');
     }

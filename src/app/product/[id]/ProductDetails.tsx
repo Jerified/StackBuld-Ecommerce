@@ -8,6 +8,7 @@ import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import Loader from '@/components/ui/loading';
 
 const ProductDetails = ({ id }: { id: string }) => {
     const [product, setProduct] = useState<Product | null>(null);
@@ -36,11 +37,13 @@ const ProductDetails = ({ id }: { id: string }) => {
     };
 
     if (!product) {
-        return <p>Loading...</p>; // You can replace this with a loader or error message.
+        return <div className='flex min-h-screen justify-center items-center'>
+            <Loader />
+        </div>;
     }
 
     return (
-        <div className="min-h-screen flex flex-col md:flex-row gap-4 justify-center items-center relative py-4">
+        <div className="min-h-screen flex flex-col md:flex-row gap-4 justify-center items-center relative my-4 border p-3 lg:px-6 rounded-md">
             <div className="w-full rounded-xl">
                 {product.imageUrl ? (
                     <Image
@@ -56,14 +59,14 @@ const ProductDetails = ({ id }: { id: string }) => {
                 )}
             </div>
             <div className="lg:w-[60%] h-[30%]">
-                <div className="border p-6 rounded-lg w-fit h-fit">
+                <div className=" rounded-lg w-fit h-fit">
                     <div className="flex justify-between items-start">
                         <div>
                             <h2 className="text-3xl font-semibold text-white">{product.name}</h2>
                             <h2 className="text-lg font-semibold text-white mt-3 border px-2 rounded-lg w-fit">{product.category}</h2>
                         </div>
-                        <div className="flex items-center">
-                            <Link href={`/product/edit/${product.id}`} className="ml-4 text-white hover:text-gray-300">
+                        <div className="flex items-center border p-2 rounded-md">
+                            <Link href={`/product/edit/${product.id}`} className=" text-white hover:text-gray-300">
                                 <FiEdit className="h-6 w-6" aria-label={`Edit ${product.name}`} />
                             </Link>
                             <button onClick={handleDelete} className="ml-4 text-red-500 hover:text-red-300">
